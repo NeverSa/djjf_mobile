@@ -28,7 +28,7 @@
         <div class="item"  @click="jumpprojectimg()"><span>相关资料</span> <div class="jump"></div></div>
         <div class="item"  @click="jumpinvestlist()"><span>投资记录</span> <div class="jump"></div></div>
       </div>
-     
+     <div class="empt_d"></div>
       <div class="invest">
         <img src="../public/imgs/investment/calculator.png" alt="" @click="calculate()">
         <div class="btn" @click="buy()" v-if="detail.state==0">立即购买</div>
@@ -247,6 +247,7 @@ export default {
   .mint-popup{
     border-radius: 15px;
   }
+  .empt_d{height: 200px;background: #fff;}
     .top{
      color: #e6ca92;
      text-align: center;
@@ -319,7 +320,6 @@ export default {
    }
    .project{
      background: #fff;
-      margin-bottom: 15px;
      .item{
        padding: 25px 35px;border-bottom: 1Px solid #f2f2f2;display: flex;justify-content: space-between;align-items: center;
        span{font-size: 28px;color: #323333;}

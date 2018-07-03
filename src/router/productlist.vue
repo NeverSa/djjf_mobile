@@ -177,6 +177,10 @@ export default {
      align-items: center;color: #fff;
      font-size: 26px;
      position: absolute;
+     left: 50%;
+     top: 50%;
+     transform: translate3d(-50%,-50%,0)
+      
      }
      .small_c_a{
         position: absolute;
@@ -188,6 +192,9 @@ export default {
         justify-content: center;
      align-items: center;color: #fff;
      font-size: 26px;
+      left: 50%;
+     top: 50%;
+     transform: translate3d(-50%,-50%,0)
      }
   
   }
