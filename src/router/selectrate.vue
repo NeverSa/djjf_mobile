@@ -1,8 +1,8 @@
 <template>
   <div class="page_pakege">
-    <div class="top">红包</div>
+    <div class="top">加息券</div>
     <div class="packge_item" v-for="item in list" @click="gotoinvest(item)">
-        <div class="money">¥ <span>{{item.voucherValue/100}}</span></div>
+        <div class="money"> <span>{{(item.voucherValue/10).toFixed(1)}}%</span></div>
         <div class="des">
           <div class="title">{{item.name}}</div>
           <div class="detail">{{item.moneyCondition}}</div>
@@ -22,7 +22,7 @@ export default {
          sessionid: this.$store.state.sessionid || "",
         userId:this.$store.state.userId || "",
         list:[],
-        productid:this.$route.query.productid||"",
+      productid:this.$route.query.productid||"",
          money:this.$route.query.money||"",
            pakagemoney:this.$route.query.pakagemoney||"",
           pocketId:this.$route.query.pocketId||"",
@@ -38,17 +38,17 @@ export default {
     },
     created() {
       this.getdetail();
-   
+    
     },
   mounted() {
    
   },
   methods: {
     gotoinvest(item){
-        this.$router.push({path: '/investmentconform', query: {pocketId:item.id,pakagemoney:item.voucherValue/100,productid:this.productid,money:this.money,money:this.money,raisingId:this.raisingId,ratesmoney:this.ratesmoney}})
+        this.$router.push({path: '/investmentconform', query: {raisingId:item.id,ratesmoney:item.voucherValue/10,productid:this.productid,money:this.money,pakagemoney:this.pakagemoney,pocketId:this.pocketId}})
     },
     getdetail(){
-      this.$http.get(`${this.Interface.NodeServer}/user/${this.userId}/account/canusevouchers/${this.$route.query.productid}?type=0&page=1&limit=100&amount=${this.$route.query.money*100}&token=${this.sessionid}&from=android&version=100`).then(res=>{
+      this.$http.get(`${this.Interface.NodeServer}/user/${this.userId}/account/canusevouchers/${this.$route.query.productid}?type=2&page=1&limit=100&amount=${this.money*100}&token=${this.sessionid}&from=android&version=100`).then(res=>{
         if(res.data.resultCode=="0"){
           this.list=res.data.resultData;
        

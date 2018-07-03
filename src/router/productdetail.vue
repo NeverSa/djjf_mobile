@@ -95,9 +95,10 @@ export default {
   },
   data() {
     return {
-      sessionid: this.$store.state.sessionid || "",
-       hasBankCard: this.$store.state.hasBankCard || "",
-       hasTradePassword:this.$store.state.hasTradePassword || "",
+      sessionid: localStorage.getItem("sessionid")|| "",
+    userId:localStorage.getItem("userId")|| "",
+           hasBankCard: localStorage.getItem("hasBankCard")|| "",
+       hasTradePassword:localStorage.getItem("hasTradePassword")|| "",
       detail:"",
       popupVisible:false,
       popupVisible1:false,
@@ -126,6 +127,9 @@ export default {
         this.$router.push("changetradingpassword_new")
     },
     buy(){
+      if(this.sessionid==""){
+        this.$router.push("login")
+      }else{
        if(this.hasBankCard=="true"){
          if(this.hasTradePassword=="true"){
             this.$router.push({path: '/investmentconform', query: {productid:this.$route.query.productid}})
@@ -135,6 +139,8 @@ export default {
        }else{
            this.popupVisible=true;
        }
+      }
+
     },
     add(){
      if(this.money!==""){

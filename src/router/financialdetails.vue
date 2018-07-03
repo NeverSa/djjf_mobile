@@ -3,15 +3,19 @@
     <div class="top">资金明细</div>
      <div class="item_fi" v-for="item in list">
          <div class="s_1">
-             <span v-if="item.type==2">投资成功</span>
-              <span v-if="item.type==3">充值成功</span>
-                <span v-if="item.type==4">提现成功</span>
-                  <span v-if="item.type==0">申请提现</span>
-             <span>可用余额(元)</span>
+              <span v-if="item.state==6">平台奖励</span>
+             <span v-if="item.state==2">申请提现</span>
+              <span v-if="item.state==3">提现成功</span>
+                <span v-if="item.state==4">提现失败</span>
+                  <span v-if="item.state==0">投资成功</span>
+                   <span v-if="item.state==1">充值成功</span>
+                     <span v-if="item.state==5">正常还款</span>
+                    <span>可用余额(元)</span>
          </div>
          <div class="s_2">
-             <span class="bule" v-if="item.type==2||item.type==4||item.type==0">+{{(item.money/100).toFixed(2)}}</span>
-              <span class="red" v-if="item.type==3">-{{(item.money/100).toFixed(2)}}</span>
+             <span class="bule" v-if="item.state==2||item.state==4||item.state==0">+{{(item.money/100).toFixed(2)}}</span>
+              <span class="red" v-if="item.state==3 ">-{{(item.money/100).toFixed(2)}}</span>
+                  <span class="red" v-if="item.state==6|| item.state==1||item.state==5">+{{(item.money/100).toFixed(2)}}</span>
              <span>{{(item.balance/100).toFixed(2)}}</span>
          </div>
          <div class="s_3">

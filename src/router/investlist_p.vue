@@ -11,6 +11,9 @@
                     金额(元)
                 </th>
                 <th>
+                    抵扣红包(元)
+                </th>
+                <th>
                     加息劵(%)
                 </th>
                 <th>
@@ -25,11 +28,14 @@
             <td class="c_1">
                  {{(item.money/100).toFixed(2)}}
             </td>
+             <td class="c_2">
+              {{(item.pocketMoney/100).toFixed(2)}}
+            </td>
             <td class="c_2">
-              {{item.raisingRates/10}}
+              {{(item.raisingRates/10).toFixed(2)}}
             </td>
             <td>
-            {{item.createdTime|newDate}}
+            {{item.createdTime|newsdata}}
             </td>
         </tr>
   
@@ -74,7 +80,7 @@ body,html{
 }
 
 .page-investlist {
-    background: #fff;
+    background: #f2f2f2;
     height: 100%;
       .top{
      color: #e6ca92;

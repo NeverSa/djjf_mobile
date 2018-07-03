@@ -8,7 +8,7 @@
         </div>
           <div class="item ">
           <span>账户余额</span>
-        <span class="money"><span>{{user.money}}</span>元</span>
+        <span class="money"><span>{{(user.money/100).toFixed(2)}}</span>元</span>
         </div>
       </div>
 
@@ -35,21 +35,21 @@
        <div class="back_bg">
         <div class="item input_item">
          <div class="">账户余额 </div>
-         <div class="red">{{user.money}}元</div>
+         <div class="red">{{(user.money/100).toFixed(2)}}元</div>
         </div>
       </div>
 
        <div class="back_bg" @click="selectpakege()">
         <div class="item input_item">
          <div class="">使用红包 </div>
-         <div class="flex_d"><span v-show="defaultamont!==''">{{defaultamont}}元</span><span class="jump"></span></div>
+         <div class="flex_d"><span v-show="pakagemoney!==''">{{pakagemoney}}元</span><span class="jump"></span></div>
         </div>
       </div>
 
-      <div class="back_bg">
+      <div class="back_bg" @click="selectrate()">
         <div class="item input_item">
          <div class="">使用加息券 </div>
-         <div class="flex_d">0.12% <span class="jump"></span></div>
+         <div class="flex_d"><span v-show="ratesmoney!==''">{{ratesmoney}}%</span> <span class="jump"></span></div>
         </div>
       </div>
 
@@ -98,7 +98,8 @@ export default {
         userId:this.$store.state.userId || "",
         user:"",
         money:"",
-        defaultamont:"",
+        ratesmoney:"",
+        pakagemoney:"",
         popupVisible:false,
         popupVisible2:false,
     }
@@ -106,10 +107,11 @@ export default {
   created() {
     this.init()
     this.getwalletBalanceList()
-    this.defaultamont=this.$route.query.amount;
-    this.money=this.$route.query.money||"";
-   this.pocketId=this.$route.query.pocketId||"";
-   this.raisingId=this.$route.query.raisingId||"";
+    this.pakagemoney=this.$route.query.pakagemoney;
+     this.money=this.$route.query.money||"";
+    this.pocketId=this.$route.query.pocketId||"";
+    this.raisingId=this.$route.query.raisingId||"";
+    this.ratesmoney=this.$route.query.ratesmoney||"";
   },
   computed: {
 
@@ -117,7 +119,16 @@ export default {
   mounted() {
 
   },
-
+   watch: {
+    money(curVal, oldVal) {
+      if(oldVal){
+        this.pakagemoney="";
+        this.pocketId="";
+        this.raisingId="";
+        this.ratesmoney="";
+      }
+    }
+  },
   methods: {
     gorechange(){
        this.$router.push("recharge")
@@ -126,11 +137,18 @@ export default {
       if(this.money<this.detail.minAmount/100){
         Toast("投资金额不能小于起投金额")
       }else{
-         this.$router.push({path: '/selectpackets', query: {productid:this.$route.query.productid,amount:this.money}})
+         this.$router.push({path: '/selectpackets', query: {productid:this.$route.query.productid,money:this.money,pakagemoney:this.pakagemoney,ratesmoney:this.ratesmoney,pocketId:this.pocketId,raisingId:this.raisingId}})
+      }
+    },
+    selectrate(){
+       if(this.money<this.detail.minAmount/100){
+        Toast("投资金额不能小于起投金额")
+      }else{
+         this.$router.push({path: '/selectrate', query: {productid:this.$route.query.productid,money:this.money,pakagemoney:this.pakagemoney,ratesmoney:this.ratesmoney,pocketId:this.pocketId,raisingId:this.raisingId}})
       }
     },
     all(){
-      this.money=this.user.money
+      this.money=this.user.money/100
     },
     submit(){
       if(this.money==""){
@@ -151,10 +169,13 @@ export default {
     },
  //确认购买
  submitbuy(){
-    this.$http.post(`${this.Interface.NodeServer}/plan/${this.$route.query.productid}/join?userId=${this.userId}&money=${this.money*100-this.defaultamont*100}&pocketId=${this.pocketId}&raisingId=${this.raisingId}&token=${this.sessionid}`).then(res=>{
+    this.$http.post(`${this.Interface.NodeServer}/plan/${this.$route.query.productid}/join?userId=${this.userId}&money=${this.money*100}&pocketId=${this.pocketId}&raisingId=${this.raisingId}&token=${this.sessionid}`).then(res=>{
        if(res.data.resultCode=="0"){
           Toast("购买成功");
-          this.$router.push("productlist")
+          setTimeout(()=>{
+            this.$router.push("productlist")
+          },2000)
+      
         }else{
            Toast(res.data.resultMsg)
         }

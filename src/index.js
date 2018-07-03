@@ -72,13 +72,10 @@ Vue.use(MintUI);
 
  // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
-  if((response.data.resultMsg=="已从其他设备登陆，请重新登陆"||response.data.resultMsg=="登录已过期，请重新登录")&&localStorage.getItem("sessionid")!==""){
+  if((response.data.resultMsg=="已从其他设备登陆，请重新登陆"||response.data.resultMsg=="登录已过期，请重新登录"||response.data.resultMsg=="参数类型不匹配，请检查请求方法的参数类型")&&localStorage.getItem("sessionid")!==""){
     localStorage.setItem("sessionid",'');
     router.push("login")
      window.location.reload() 
-  
-
-   
   }
 	try {
 		if (typeof (response.data.data) == "string") {

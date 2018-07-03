@@ -29,11 +29,20 @@
               value="修改">
         </mt-cell>
     </div>
+
     <div @click="changetradingpassword()">
         <mt-cell
               title="交易密码"
               is-link
               value="修改">
+        </mt-cell>
+    </div>
+
+      <div @click="logout()">
+        <mt-cell
+              title="清除缓存"
+               is-link
+              >
         </mt-cell>
     </div>
      <div class="logout" @click="logout()">

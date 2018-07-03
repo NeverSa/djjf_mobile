@@ -23,11 +23,11 @@
         </div>
          <div class="list_bom">
             <span>回款日期</span>
-            <span>2017-07-22asdas</span>
+            <span></span>
         </div>
          <div class="list_bom">
             <span>本期/总期</span>
-            <span>2017-07-22asdas</span>
+            <span>{{item.period}}/{{item.length}}期</span>
         </div>
        </div>
       </div>

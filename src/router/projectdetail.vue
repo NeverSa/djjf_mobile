@@ -42,7 +42,6 @@ export default {
   background: #fff;
   height: 100%;
 
-
    .top{
      color: #e6ca92;
      text-align: center;
@@ -57,18 +56,18 @@ export default {
 /*项目详情*/
 .projectDetailWrap{
 	width: 100%;
-	
+
 }
 
 .projectDetailDiv{
-	min-height: 2.5rem;
-	border-bottom:1px dashed #9C9C9C;
-	padding: 0.5rem 0;
-	margin:0 0.5rem;
+	border-bottom:1Px dashed #9C9C9C;
+	padding: 0.5rem 30px;
+  line-height: 40px;
+  background: #fff;
 }
 
 .projectDetailDiv h3{
-	font-size:16px;
+	font-size:26px;
 	font-weight: 600;
 	color: #333;
 	margin: 0.15625rem 0 0.3125rem 0;
@@ -96,20 +95,23 @@ export default {
 	}
 
 .projectDetailDiv .tableone {
+  vertical-align: middle;
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
+    border-left: 1Px solid #ddd;
+    border-top: 1Px solid #ddd;
 }
 
 .projectDetailDiv .tableone td {
-    border-bottom: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+    border-bottom: 1Px solid #ddd;
+    border-right: 1Px solid #ddd;
     height: 0.859375rem;
-    font-size: 12px;
+   font-size: 22px !important;
     text-align: center;
+    vertical-align: middle;
    /* width: 192px;*/
+   span{font-size: 22px !important}
 }
 [data-dpr="2"] .projectDetailDiv .tableone td {
 		font-size: 24px;

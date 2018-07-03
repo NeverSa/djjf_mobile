@@ -1,7 +1,7 @@
 <template>
   <div class="page-my-resgis">
-      <div class="top_login">
-          <div class="top">
+      <div class="top_login_a">
+          <div class="top_a">
             <div></div>
               <div>注册</div>
               <div ></div>
@@ -120,14 +120,14 @@ body {
   background: #fff;
 }
 .page-my-resgis {
-.top_login{
+.top_login_a{
     background: #b89a54;
     height: 324px;
     font-size: 32px;
     text-align: center;
     margin-bottom: 15px;
     .app{width: 120px;height: 120px;;margin-top: 50px}
-    .top{display: flex;justify-content: space-between;align-self: center;color: #fff;padding-top: 20px;img{width: 26px;height: 26px;margin-left: 20px;}}
+    .top_a{display: flex;justify-content: space-between;align-self: center;color: #fff;padding-top: 20px;img{width: 26px;height: 26px;margin-left: 20px;}}
 }
 
   height: 100%;

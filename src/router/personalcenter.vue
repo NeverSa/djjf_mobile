@@ -84,9 +84,9 @@ export default {
   data() {
     return {
       sessionid: this.$store.state.sessionid || "",
-      userId:this.$store.state.userId || "",
-           hasBankCard: this.$store.state.hasBankCard || "",
-       hasTradePassword:this.$store.state.hasTradePassword || "",
+      userId:localStorage.getItem("userId")|| "",
+           hasBankCard: localStorage.getItem("hasBankCard")|| "",
+       hasTradePassword:localStorage.getItem("hasTradePassword")|| "",
             popupVisible:false,
       popupVisible1:false,
       user:{money:0,freezingMoney:0,repaying:0},
@@ -108,6 +108,7 @@ export default {
     this.$router.push("realname")
   },
    gochongzhi(url){
+     debugger
       if(this.sessionid==""){
         this.$router.push("login");
       }else{

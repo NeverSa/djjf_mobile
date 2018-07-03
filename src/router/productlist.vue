@@ -60,10 +60,19 @@ export default {
         return ""
       }
     },
+    compare(property){
+    return function(a,b){
+            var value1 = a[property];
+            var value2 = b[property];
+            return value1 - value2;
+        }
+    },
     getnewList(){
       this.$http.get(`${this.Interface.NodeServer}/plans?order=desc&type=1&limit=100`).then(res=>{
         if(res.data.resultCode=="0"){
-          this.list=this.list.concat(res.data.resultData)
+          this.list=this.list.concat(res.data.resultData);
+           this.list.sort(this.compare('state'))
+          console.log(this.list)
         }
       })
     },

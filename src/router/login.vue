@@ -25,7 +25,7 @@ export default {
   created() {},
   watch: {
     phone(curVal, oldVal) {
-        if(!(/(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/.test(curVal))){ 
+        if(!(/(^1[3|4|5|7|8|9]\d{9}$)|(^09\d{8}$)/.test(curVal))){ 
          this.enable=false;
         }else{
           this.enable=true;
@@ -43,7 +43,7 @@ export default {
         .post(
           `${this.Interface.NodeServer}/user/check?phone=${
             this.phone
-          }&from=pc&version=100`,
+          }`,
           {}
         )
         .then(res => {

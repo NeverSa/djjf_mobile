@@ -110,7 +110,7 @@ module.exports = {
     new ExtractTextPlugin("style.css"),
     new HtmlWebpackPlugin({
       inject: 'body',
-      title: '优选理财',
+      title: '点点金服',
       template: './src/index.html'
     }),
 

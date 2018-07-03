@@ -163,6 +163,15 @@ export default new Router({
         title: "投资确认"
       }
     },
+    {
+      //选择加息券            
+      path: '/selectrate',
+      name: 'selectrate',
+      component: resolve => require(['@/router/selectrate'], resolve),
+      meta: {
+        title: "投资确认"
+      }
+    },
         {
       //充值
       path: '/recharge',

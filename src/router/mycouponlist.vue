@@ -5,8 +5,8 @@
       <div class="table_nav">
         <div class="border_go" :class="{'goactive':selected==2,'goactive1':selected==3}"></div>
         <div class="item" :class="{'active':selected==1}" @click="selected=1">未使用</div>
-        <div class="item" :class="{'active':selected==2}" @click="selected=2">已使用</div>
-         <div class="item" :class="{'active':selected==3}" @click="selected=3">已过期</div>
+        <div class="item" :class="{'active':selected==2}" @click="selected=2">已过期</div>
+         <div class="item" :class="{'active':selected==3}" @click="selected=3">已使用</div>
       </div>
       
       <div style="flex:1; overflow: scroll; " class="tab_content" v-show="selected==1">
@@ -22,7 +22,8 @@
         <div class="noresult">没有更多了</div>
       </div>
         <div style="flex:1; overflow: scroll; " class="tab_content" v-show="selected==2">
-             <div class="packge_item" v-for="item in list1" >
+
+             <div class="packge_item user" v-for="item in list1" >
             <div class="money">¥ <span>{{item.voucherValue/100}}</span></div>
             <div class="des">
               <div class="title">{{item.name}}</div>
@@ -34,7 +35,7 @@
          <div class="noresult">没有更多了</div>
       </div>
         <div style="flex:1; overflow: scroll; " class="tab_content" v-show="selected==3">
-             <div class="packge_item" v-for="item in list2" >
+             <div class="packge_item user" v-for="item in list2" >
             <div class="money">¥ <span>{{item.voucherValue/100}}</span></div>
             <div class="des">
               <div class="title">{{item.name}}</div>
@@ -169,7 +170,7 @@ export default {
  span{color: #fe4c58}
 }
   .tab_content {
-       .packge_item{
+    .packge_item{
        background: #fff;
        border: 1pX solid #fe4c58;
        border-radius: 10px;
@@ -197,7 +198,10 @@ export default {
            .detail{font-size: 20px;color: #666;margin-top: 15px;}
        }
    }
-
+    .user{
+      border: 1Px solid #e0e0e0;
+      .money{color:#999;}
+    }
     background: #f2f2f2;
   .list_item{
     margin: 0 auto;

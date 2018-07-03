@@ -5,13 +5,13 @@
       <div class="table_nav">
         <div class="border_go" :class="{'goactive':selected==2,'goactive1':selected==3}"></div>
         <div class="item" :class="{'active':selected==1}" @click="selected=1">未使用</div>
-        <div class="item" :class="{'active':selected==2}" @click="selected=2">已使用</div>
-         <div class="item" :class="{'active':selected==3}" @click="selected=3">已过期</div>
+        <div class="item" :class="{'active':selected==2}" @click="selected=2">已过期</div>
+         <div class="item" :class="{'active':selected==3}" @click="selected=3">已使用</div>
       </div>
       
-      <div style="flex:1; overflow: hidden; " class="tab_content" v-show="selected==1">
-          <div class="packge_item" v-for="item in list" @click="gotoinvest(item)">
-            <div class="money">¥ <span>{{item.voucherValue/100}}</span></div>
+      <div style="flex:1; overflow: scroll; " class="tab_content" v-show="selected==1">
+          <div class="packge_item" v-for="item in list0" >
+            <div class="money"><span>{{(item.voucherValue/10).toFixed(1)}}%</span></div>
             <div class="des">
               <div class="title">{{item.name}}</div>
               <div class="detail">{{item.moneyCondition}}</div>
@@ -19,13 +19,32 @@
               <div class="detail">{{item.beginTime |newDate}}至{{item.expiredTime |newDate}}</div>
             </div>
         </div>
-   
+        <div class="noresult">没有更多了</div>
       </div>
-      <div style="flex:1; overflow: hidden; " class="tab_content" v-show="selected==2">
-       asdada
+        <div style="flex:1; overflow: scroll; " class="tab_content" v-show="selected==2">
+
+             <div class="packge_item user" v-for="item in list1" >
+            <div class="money"><span>{{(item.voucherValue/10).toFixed(1)}}%</span></div>
+            <div class="des">
+              <div class="title">{{item.name}}</div>
+              <div class="detail">{{item.moneyCondition}}</div>
+              <div class="detail">{{item.dayCondition}}</div>
+              <div class="detail">{{item.beginTime |newDate}}至{{item.expiredTime |newDate}}</div>
+            </div>
+        </div>
+         <div class="noresult">没有更多了</div>
       </div>
-        <div style="flex:1; overflow: hidden; " class="tab_content" v-show="selected==3">
-       asdada
+        <div style="flex:1; overflow: scroll; " class="tab_content" v-show="selected==3">
+             <div class="packge_item user" v-for="item in list2" >
+            <div class="money"> <span>{{(item.voucherValue/10).toFixed(1)}}%</span></div>
+            <div class="des">
+              <div class="title">{{item.name}}</div>
+              <div class="detail">{{item.moneyCondition}}</div>
+              <div class="detail">{{item.dayCondition}}</div>
+              <div class="detail">{{item.beginTime |newDate}}至{{item.expiredTime |newDate}}</div>
+            </div>
+        </div>
+         <div class="noresult">没有更多了</div>
       </div>
     </div>
   </div>
@@ -41,50 +60,35 @@ export default {
     return {
       selected: 1,
       sessionid: this.$store.state.sessionid || "",
-      expectlist: [],
-      recoveredlist: [],
-      wallet: []
+      userId: this.$store.state.userId || "",
+       list0: [],
+         list1: [],
+        list2: [],
     };
   },
   methods: {
 
 
-    getInterestList() {
-      this.$http
-        .get(this.Interface.getExpectInterestList, {
-          params: {
-            sessionid: this.sessionid,
-            pageNo: this.defaultpage,
-            pageSize: 20
-          }
-        })
-        .then(res => {
-          if (res.data.success) {
-            this.expectlist = res.data.data.list;
-            this.defaultpage++;
-          }
-        });
+    getInterestList(type) {
+     this.$http.get(`${this.Interface.NodeServer}/user/${this.userId}/account/vouchers?type=2&status=${type}&page=1&limit=100&token=${this.sessionid}`).then(res=>{
+              if(res.data.resultCode=="0"){
+                if(type==0){
+                  this.list0=res.data.resultData
+                }else if(type==1){
+                   this.list1=res.data.resultData
+                }else if(type==2){
+                   this.list2=res.data.resultData
+                }
+              
+              }
+            })
     },
-    getRecoveredList() {
-      this.$http
-        .get(this.Interface.getRecoveredInterestList, {
-          params: {
-            sessionid: this.sessionid,
-            pageNo: this.defaultpage1,
-            pageSize: 20
-          }
-        })
-        .then(res => {
-          if (res.data.success) {
-            this.recoveredlist = res.data.data.list;
-            this.defaultpage1++;
-          }
-        });
-    }
+  
   },
   created() {
-    this.getInterestList();
-    this.getRecoveredList();
+    this.getInterestList(0);
+    this.getInterestList(1);
+     this.getInterestList(2);
   }
 };
 </script>
@@ -166,7 +170,7 @@ export default {
  span{color: #fe4c58}
 }
   .tab_content {
-       .packge_item{
+    .packge_item{
        background: #fff;
        border: 1pX solid #fe4c58;
        border-radius: 10px;
@@ -194,7 +198,10 @@ export default {
            .detail{font-size: 20px;color: #666;margin-top: 15px;}
        }
    }
-
+    .user{
+      border: 1Px solid #e0e0e0;
+      .money{color:#999;}
+    }
     background: #f2f2f2;
   .list_item{
     margin: 0 auto;
