@@ -40,10 +40,10 @@
          <div> <img class="icon_7" src="../public/imgs/user/icon_7.png" alt=""><span class="title">加息卷</span></div>
           <div class="jump"></div>
        </div>
-       <!-- <div class="item">
+       <div class="item" @click="yaoqian()">
          <div> <img class="icon_8" src="../public/imgs/user/icon_8.png" alt=""><span class="title">邀请有礼</span></div>
           <div class="jump"></div>
-       </div> -->
+       </div>
              <mt-popup
         v-model="popupVisible"
         popup-transition="popup-fade">
@@ -69,12 +69,20 @@
            </div>
         </div>
       </mt-popup>
+
+        <mt-popup
+        v-model="popupVisible2"
+        popup-transition="popup-fade" class="code">
+               <img  id="imgSrc" alt=""><br/>
+               保存二维码分享给好友
+      </mt-popup>
        <div class="empt"></div>
        <topbar selected="我的"></topbar> 
   </div>
 </template>
 <script>
 import topbar from "../components/topbar.vue";
+import QRCode  from 'qrcode'
 import { Popup } from 'mint-ui';
 export default {
   components: {
@@ -83,13 +91,18 @@ export default {
   name: "",
   data() {
     return {
+      popupVisible2:false,
+      popupVisible1:false,
+      popupVisible:false,
       sessionid: this.$store.state.sessionid || "",
       userId:localStorage.getItem("userId")|| "",
            hasBankCard: localStorage.getItem("hasBankCard")|| "",
        hasTradePassword:localStorage.getItem("hasTradePassword")|| "",
+       name:localStorage.getItem("name")|| "",
             popupVisible:false,
       popupVisible1:false,
       user:{money:0,freezingMoney:0,repaying:0},
+      imgsrc:"",
     };
   },
 
@@ -98,9 +111,22 @@ export default {
     // this.getmoney()
   },
   mounted() {
-  
+ 
+
   },
   methods: {
+       setoc(){
+         this.$nextTick(()=>{
+            QRCode.toDataURL(`http://dj.hzdjjf.com/mobile/shareRegister?recommendCode=${this.name}`, {errorCorrectionLevel: 'H'}, function (err, url) {
+                    document.getElementById('imgSrc').src = url;
+                })
+         })
+      
+    },
+    yaoqian(){
+      this.setoc()
+      this.popupVisible2=true;
+    },
      gosetingpsd(){
         this.$router.push("changetradingpassword_new")
     },
@@ -108,7 +134,6 @@ export default {
     this.$router.push("realname")
   },
    gochongzhi(url){
-     debugger
       if(this.sessionid==""){
         this.$router.push("login");
       }else{
@@ -159,7 +184,14 @@ body {
 }
 .empt{height: 100px;;}
 .page-my-center {
+  .code{
+    text-align:center;
+    padding: 40px;
+    width: 400px;
+    border-radius: 0;
+  }
     .msgbox{
+      text-align: center;
     width: 600px;
     background: #fff;
     border-radius: 15px;

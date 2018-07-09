@@ -26,7 +26,7 @@
 export default {
   data() {
     return {
-     
+       sessionid: this.$store.state.sessionid || "",
     };
   },
   props: ["selected"],
@@ -34,7 +34,17 @@ export default {
   },
   methods: {
     jump(url){
-      this.$router.push(url)
+      if(url=="personalcenter"){
+        if(this.sessionid==""){
+         sessionStorage.setItem("form","personalcenter")
+            this.$router.push("login")
+        }else{
+            this.$router.push(url)
+        }
+      }else{
+        this.$router.push(url)
+      }
+     
     }
   },
      created() {

@@ -27,6 +27,7 @@ var store = new vuex.Store({//store对象
   mutations: {
      //显式的更改state里的数据
      login:function(state,user){
+       debugger
       state.sessionid=user.userAuth.token;
       localStorage.setItem("sessionid", user.userAuth.token);
 
@@ -39,6 +40,10 @@ var store = new vuex.Store({//store对象
     //交易密码
       state.hasTradePassword=user.hasTradePassword;
       localStorage.setItem("hasTradePassword", user.hasTradePassword);
+
+         //交易密码
+         state.name=user.user.name;
+         localStorage.setItem("name", user.user.name);
    },
     logout:function(state){
       state.sessionid="";
@@ -49,6 +54,8 @@ var store = new vuex.Store({//store对象
       localStorage.setItem("hasBankCard", "");
       state.hasTradePassword="";
       localStorage.setItem("hasTradePassword", "");
+      state.name="";
+      localStorage.setItem("name", "");
     }
     //显式的更改state里的数据
   },
@@ -169,11 +176,13 @@ new Vue({
       localStorage.setItem("hasBankCard",'');
       localStorage.setItem("userId",'');
       localStorage.setItem("hasTradePassword",'');
+      localStorage.setItem("name",'');
     }
     this.$store.state.sessionid= localStorage.getItem("sessionid");
     this.$store.state.hasBankCard= localStorage.getItem("hasBankCard");
     this.$store.state.hasTradePassword= localStorage.getItem("hasTradePassword");
     this.$store.state.userId= localStorage.getItem("userId");
+    this.$store.state.name= localStorage.getItem("name");
 
   }
 },

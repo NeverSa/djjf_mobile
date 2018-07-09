@@ -10,7 +10,7 @@
       <div class="des_acc">
         已收本金(元)：<span>{{(wallet.repayedCorpus/100).toFixed(2)}}</span>，已收收益(元)：<span>{{(wallet.repayedInterest/100).toFixed(2)}}</span>
       </div>
-      <div style="flex:1; overflow: hidden; " class="tab_content" v-show="selected==1">
+      <div style="flex:1; overflow: scroll; " class="tab_content" v-show="selected==1">
        <div class="list_item" v-for="item in expectlist">
         <div class="list_top">
           <div class="name">{{item.name}}</div>
@@ -31,7 +31,7 @@
         </div>
        </div>
       </div>
-      <div style="flex:1; overflow: hidden; " class="tab_content" v-show="selected==2">
+      <div style="flex:1; overflow: scroll; " class="tab_content" v-show="selected==2">
               <div class="list_item" v-for="item in recoveredlist">
         <div class="list_top">
           <div class="name">{{item.name}}</div>
@@ -44,11 +44,11 @@
         </div>
          <div class="list_bom">
             <span>回款日期</span>
-            <span>2017-07-22asdas</span>
+            <span></span>
         </div>
          <div class="list_bom">
             <span>本期/总期</span>
-            <span>2017-07-22asdas</span>
+            <span>{{item.period}}/{{item.length}}期</span>
         </div>
        </div>
       </div>

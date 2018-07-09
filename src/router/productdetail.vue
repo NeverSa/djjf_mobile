@@ -18,6 +18,7 @@
        <div class="pro_des">
          <div class="title">产品介绍</div>
          <div class="item">剩余额度：<span style="color:#fe4c58">{{(detail.amount-detail.nowSum)/100}}元</span></div>
+          <div class="item" v-if="detail.type==1">新客规则<span>{{detail.newInvestorRule}}</span></div>
          <div class="item">计息方式：<span>{{detail.interestType}}</span></div>
          <div class="item">还款时间：<span>{{detail.repayTime}}</span></div>
          <div class="item">还款方式：<span>{{detail.repayType}}</span></div>
